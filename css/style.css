@@ -36,7 +36,7 @@ header #pname {
 /* Navigation bar */
 
 nav {
-    background-color: darkgrey;
+    background-color: steelblue;
 }
 
 nav a {
@@ -46,7 +46,8 @@ nav a {
     text-decoration: none;
     font-size: 1.5em;
     color: black;
-    background-color: rgb(134, 134, 134);
+    /*background-color: rgb(134, 134, 134);*/
+    border: 0.2em solid rgb(56, 101, 138);
     padding: 0.7em;
     color: rgb(243, 235, 231);
 }
@@ -56,12 +57,8 @@ nav a:hover {
 }
 
 nav a.active {
-    background-color: steelblue;
-    text-decoration: underline;
-}
-
-nav a.active:hover {
     background-color: rgb(56, 101, 138);
+    text-decoration: underline;
 }
 
 nav form {
@@ -142,22 +139,22 @@ main div .movie-name {
     opacity: 0;
     position: fixed;
     z-index: 1;
-    padding-top: 5em;
     width: 100%;
     height: 100%;
     overflow: auto;
     background-color: rgba(0, 0, 0, 0.35);
-    transition: opacity 500ms, visibility 500ms;
+    transition: opacity 800ms, visibility 800ms;
 }
 
 .modal-content {
-    background-color: rgb(243, 235, 231);
+    background-color: rgb(48, 48, 48);
     margin: auto;
     padding: 1.2em;
     border: 0.15em solid rgb(136, 136, 136);
     border-radius: 2em;
     width: 80%;
     box-shadow: 0.2em 0.2em 0.2em;
+    margin-top: 3em;
 }
 
 .close {
@@ -169,6 +166,20 @@ main div .movie-name {
 }
 
 .close:hover {
-    color: black;
+    color: white;
     cursor: pointer;
+}
+
+#modal-img {
+    margin-left: 0.8em;
+}
+
+#modal-title {
+    text-align: center;
+    font-weight: bold;
+    color: white;
+}
+
+.modal-text {
+    color: white;
 }
