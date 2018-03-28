@@ -1,18 +1,40 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Teste desenvolvedor Appmoove</title>
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,900" rel="stylesheet">
 </head>
 
 <body>
-    
-    <!-- Put your html code here -->
 
-<!-- Load scripts -->
-<!-- <script src="js/..."></script> -->
+    <header>
+        <img class="in-header logo" src="logotipo_pareazul.svg" alt="Appmoove">
+        <h1 id="title" class="in-header">TMDb demo</h1>
+        <p id="pname" class="in-header">Guilherme Pereira Noya</p>
+    </header>
+
+    <nav>
+        <div class="navbar">
+            <a href="#" class="active" onclick="openInTheaters()">Lançamentos</a>
+            <a href="#" onclick="openFeatured()">Populares</a>
+            <form id="search" onsubmit="searchMovie()">
+                <input id="searchbox" type="search" placeholder="Buscar..." size="14" >
+                <!-- Utilizei unicode para não usar ícones de bibliotecas externas -->
+                <button type="submit" id="search-button" value="query">&#x1f50d</button>
+            </form>
+        </div>
+    </nav>
+
+    <main>
+        Em construção.
+    </main>
+
+    <!-- Load scripts here to load after the html loads -->
+    <script src="js/main.js"></script>
 
 </body>
 

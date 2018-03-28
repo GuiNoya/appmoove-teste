@@ -1,16 +1,100 @@
-/* css incial */
-html{
+html {
+    margin: 0;
     height: 100%;
-}
-body{
-    margin:0;
-    padding:0;
-    border-bottom: #04A9DE 12px solid ;
-    display: grid;
-    grid-template-rows: 85% auto;
+    min-height: 100%;
 }
 
-.header-title{
+body {
+    margin:0;
+    padding:0;
+    background-color: rgb(221, 221, 221);
+    display: grid;
+}
+
+/* Header */
+
+header {
+    padding: 1em;
+    background-color: rgb(201, 227, 235);
     display: flex;
     justify-content: space-between;
+}
+
+.in-header {
+    max-width: 30%;
+}
+
+header .logo {
+    width: 20%;
+}
+
+header #pname {
+    font-weight: bold;
+    color: grey;
+}
+
+/* Navigation bar */
+
+nav {
+    background-color: darkgrey;
+}
+
+nav a {
+    display: block;
+    float: left;
+    text-align: center;
+    text-decoration: none;
+    font-size: 1.5em;
+    color: black;
+    background-color: rgb(134, 134, 134);
+    padding: 0.7em;
+    color: rgb(245, 235, 229);
+    
+}
+
+nav a:hover {
+    background-color: black;
+}
+
+nav a.active {
+    background-color: steelblue;
+}
+
+nav a.active:hover {
+    background-color: rgb(56, 101, 138);
+}
+
+nav form {
+    float: right;
+    margin: 0.95em;
+    vertical-align: middle;
+}
+
+nav input {
+    margin: 0;
+    border: none;
+    font-size: 1.5em;
+    vertical-align: middle;
+}
+
+nav button {
+    cursor: pointer;
+    margin: -0.13em;
+    border: none;
+    font-size: 1.7em;
+    vertical-align: middle;
+    background: rgb(94, 143, 184);
+}
+
+nav button:hover {
+    background: steelblue;
+}
+
+/* Main body */
+
+main {
+    height: 100%;
+    width: 100%;
+    display: grid;
+    grid-template: auto auto auto;
 }
