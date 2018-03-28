@@ -5,8 +5,8 @@ html {
 }
 
 body {
-    margin:0;
-    padding:0;
+    margin: 0;
+    padding: 0;
     background-color: rgb(221, 221, 221);
     display: grid;
 }
@@ -48,8 +48,7 @@ nav a {
     color: black;
     background-color: rgb(134, 134, 134);
     padding: 0.7em;
-    color: rgb(245, 235, 229);
-    
+    color: rgb(243, 235, 231);
 }
 
 nav a:hover {
@@ -58,6 +57,7 @@ nav a:hover {
 
 nav a.active {
     background-color: steelblue;
+    text-decoration: underline;
 }
 
 nav a.active:hover {
@@ -93,8 +93,82 @@ nav button:hover {
 /* Main body */
 
 main {
-    height: 100%;
-    width: 100%;
     display: grid;
-    grid-template: auto auto auto;
+    grid-template: '. . .';
+    grid-gap: 1em 5em;
+    margin: 10em;
+    margin-top: 1.5em;
+}
+
+main .movie-general {
+    border: 0.4em outset darkgrey;
+    border-radius: 1em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 0;
+    min-width: 16em;
+    max-width: 16em;
+}
+
+main .movie-general:hover {
+    cursor: pointer;
+    background-color: rgb(199, 199, 199);
+}
+
+main .movie-img {
+    margin: 1em 1em;
+    overflow: hidden;
+    min-width: 0;
+}
+
+main div p {
+    margin: 0.1em;
+    margin-left: 1em
+}
+
+main div .movie-name {
+    font-weight: bold;
+    text-align: center;
+    word-wrap: break-word;
+    width: 70%;
+}
+
+/* Modal */
+
+.modal {
+    display: block;
+    visibility: hidden;
+    opacity: 0;
+    position: fixed;
+    z-index: 1;
+    padding-top: 5em;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.35);
+    transition: opacity 500ms, visibility 500ms;
+}
+
+.modal-content {
+    background-color: rgb(243, 235, 231);
+    margin: auto;
+    padding: 1.2em;
+    border: 0.15em solid rgb(136, 136, 136);
+    border-radius: 2em;
+    width: 80%;
+    box-shadow: 0.2em 0.2em 0.2em;
+}
+
+.close {
+    color: darkgrey;
+    float: right;
+    font-size: 2em;
+    font-weight: bold;
+    margin: -0.5em -0.2em 0 0;
+}
+
+.close:hover {
+    color: black;
+    cursor: pointer;
 }

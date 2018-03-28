@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,900" rel="stylesheet">
 </head>
 
-<body>
+<body onload="openInTheaters()">
 
     <header>
         <img class="in-header logo" src="logotipo_pareazul.svg" alt="Appmoove">
@@ -19,19 +19,27 @@
 
     <nav>
         <div class="navbar">
-            <a href="#" class="active" onclick="openInTheaters()">Lançamentos</a>
-            <a href="#" onclick="openFeatured()">Populares</a>
+            <a href="#" id="in-theaters" onclick="openInTheaters()">Em cartaz</a>
+            <a href="#" id="populars" onclick="openPopular()">Populares</a>
             <form id="search" onsubmit="searchMovie()">
-                <input id="searchbox" type="search" placeholder="Buscar..." size="14" >
+                <input id="searchbox" type="search" placeholder="Buscar..." size="14">
                 <!-- Utilizei unicode para não usar ícones de bibliotecas externas -->
-                <button type="submit" id="search-button" value="query">&#x1f50d</button>
+                <button type="submit" id="search-button">&#x1F50D;</button>
             </form>
         </div>
     </nav>
 
     <main>
-        Em construção.
     </main>
+
+    <div id="modal-container" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p>Stuff</p>
+        </div>
+    </div>
+
+
 
     <!-- Load scripts here to load after the html loads -->
     <script src="js/main.js"></script>
