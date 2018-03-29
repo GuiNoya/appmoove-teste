@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Teste desenvolvedor Appmoove</title>
     <link rel="stylesheet" type="text/css" href="css/style.css">
+    <!-- Font awesome para o icone de busca -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">    
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,900" rel="stylesheet">
 </head>
 
@@ -23,8 +25,7 @@
             <a href="#" id="populars" onclick="openPopular()">Populares</a>
             <form id="search" onsubmit="searchMovie()">
                 <input id="searchbox" type="search" placeholder="Buscar..." size="14">
-                <!-- Utilizei unicode para não usar ícones de bibliotecas externas -->
-                <button type="submit" id="search-button">&#x1F50D;</button>
+                <button type="submit" id="search-button"><i class="fa fa-search"></i></button>
             </form>
         </div>
     </nav>
@@ -41,14 +42,18 @@
                 </div>
                 <div style="margin-left: 2em; flex-grow: 1;">
                     <h2 id="modal-title">Nome</h2>
-                    <p id="modal-date" class="modal-text">Data</p>
-                    <p id="modal-genres" class="modal-text">Generos: ...</p>
+                    <p id="modal-overview" class="modal-text"></p>
+                    <p id="modal-date" class="modal-text">Data de estreia:</p>
+                    <p id="modal-genres" class="modal-text">Gêneros:</p>
+                    <p id="modal-runtime" class="modal-text">Tempo de exibição:</p>
+                    <p id="modal-directors" class="modal-text">Diretor:</p>
+                    <p id="modal-cast" class="modal-text">Elenco:</p>
+                    <a id="modal-tmdb" class="modal-link" target="_blank">Página do TMDb</a> |
+                    <a id="modal-trailer" class="modal-link" target="_blank">Abrir trailer</a>
                 </div>
             </div>
         </div>
     </div>
-
-
 
     <!-- Load scripts here to load after the html loads -->
     <script src="js/main.js"></script>

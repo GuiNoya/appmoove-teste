@@ -46,7 +46,6 @@ nav a {
     text-decoration: none;
     font-size: 1.5em;
     color: black;
-    /*background-color: rgb(134, 134, 134);*/
     border: 0.2em solid rgb(56, 101, 138);
     padding: 0.7em;
     color: rgb(243, 235, 231);
@@ -72,15 +71,17 @@ nav input {
     border: none;
     font-size: 1.5em;
     vertical-align: middle;
+    border: 0.1em solid rgb(56, 101, 138)
 }
 
 nav button {
     cursor: pointer;
-    margin: -0.13em;
+    margin: -0.20em;
     border: none;
-    font-size: 1.7em;
+    font-size: 1.60em;
     vertical-align: middle;
     background: rgb(94, 143, 184);
+    border: 0.1em solid rgb(56, 101, 138);
 }
 
 nav button:hover {
@@ -180,6 +181,16 @@ main div .movie-name {
     color: white;
 }
 
+#modal-overview {
+    text-align: justify;
+}
+
 .modal-text {
     color: white;
+    letter-spacing: 0.01em;
+}
+
+.modal-link {
+    color: rgb(189, 226, 255);
+    letter-spacing: 0.01em;
 }

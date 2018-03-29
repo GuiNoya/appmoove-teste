@@ -15,8 +15,14 @@ var modalContent = document.querySelector(".modal-content");
 var modalCloseButton = document.querySelector(".close");
 var modalPoster = document.querySelector("#modal-poster");
 var modalTitle = document.querySelector("#modal-title");
+var modalOverview = document.querySelector("#modal-overview");
 var modalDate = document.querySelector("#modal-date");
 var modalGenres = document.querySelector("#modal-genres");
+var modalRuntime = document.querySelector("#modal-runtime");
+var modalDirectors = document.querySelector("#modal-directors");
+var modalCast = document.querySelector("#modal-cast");
+var modalTmdb = document.querySelector("#modal-tmdb");
+var modalTrailer = document.querySelector("#modal-trailer");
 
 modalCloseButton.onclick = function () {
     modal.style.opacity = 0;
@@ -69,7 +75,7 @@ function generateRequestURI(request, query) {
         uri += "/search/movie?include_adult=false&query=" +
             encodeURIComponent(query) + "&page=1&region=BR&";
     } else if (request === "movie") {
-        uri += "/movie/" + query + "?";
+        uri += "/movie/" + query + "?append_to_response=videos,credits&";
     } else {
         uri += "/movie/" + request + "?page=1&region=BR&";
     }
@@ -113,22 +119,71 @@ function invertDateString(dateString) {
 }
 
 function showMovieDetails(id) {
-    modal.style.opacity = 1;
-    modal.style.visibility = "visible";
     callTmdbEndpoint(generateRequestURI("movie", id), function (response) {
         var movie = JSON.parse(response);
         console.log(movie);
+        modal.style.opacity = 1;
+        modal.style.visibility = "visible";
+        // Título
         modalTitle.innerHTML = movie.title;
+        // Resumo
+        modalOverview.innerHTML = movie.overview;
+        // Data de streia
         modalDate.innerHTML = "Data de estreia: " + invertDateString(movie.release_date);
+        // Gêneros
         var genresStr = "Gêneros: ";
         var i = 0;
         for (; i < movie.genres.length; i++) {
             genresStr += movie.genres[i].name + ", ";
         }
-        modalGenres.innerHTML = i === 0 ? "nenhum" : genresStr.substr(0, genresStr.length - 2);
+        modalGenres.innerHTML = i === 0 ? "" : genresStr.substr(0, genresStr.length - 2);
+        // Tempo de exibição
+        modalRuntime.innerHTML = "Tempo de Exibição: " + Math.floor(movie.runtime / 60) + "h" + movie.runtime % 60;
+        // Diretores
+        var directorsStr = "";
+        var count = 0;
+        for (i = 0; i < movie.credits.crew.length; i++) {
+            if (movie.credits.crew[i].job === "Director") {
+                directorsStr += movie.credits.crew[i].name + ", ";
+                count++;
+            }
+        }
+        if (count === 1) {
+            modalDirectors.innerHTML = "Diretor: " + directorsStr.substr(0, directorsStr.length - 2);
+        } else if (count === 0) {
+            modalDirectors.innerHTML = "";
+        } else {
+            modalDirectors.innerHTML = "Diretores: " + directorsStr.substr(0, directorsStr.length - 2);
+        }
+        // Elenco
+        modalCast.innerHTML = "Elenco: ";
+        for (i = 0; i < movie.credits.cast.length && i < 4; i++) {
+            modalCast.innerHTML += movie.credits.cast[i].name + ", ";
+        }
+        modalCast.innerHTML += movie.credits.cast[i].name;
+        // TMDb link
+        modalTmdb.href = "https://www.themoviedb.org/movie/" + movie.id;
+        // Trailer
+        var trailerId = "";
+        var videos = movie.videos.results;
+        for (i = 0; i < videos.length; i++) {
+            if (videos[i].site === "YouTube" && videos[i].type === "Trailer") {
+                trailerId = videos[i].key;
+                break;
+            }
+        }
+        if (trailerId.length > 1) {
+            modalTrailer.href = "https://youtu.be/" + trailerId;
+            modalTrailer.innerHTML = "Abrir trailer";
+        } else {
+            modalTrailer.href = "";
+            modalTrailer.innerHTML = "";
+        }
+        // Poster
         modalPoster.src = "http://image.tmdb.org/t/p/w342" + movie.poster_path;
+        // Background
         if (movie.backdrop_path !== null) {
-            modalContent.style.background = "linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url(http://image.tmdb.org/t/p/w780/" + movie.backdrop_path + ")";
+            modalContent.style.background = "linear-gradient(rgba(0, 0, 0, 0.90), rgba(0, 0, 0, 0.90)), url(http://image.tmdb.org/t/p/w780/" + movie.backdrop_path + ")";
             modalContent.style.backgroundRepeat = "no-repeat";
             modalContent.style.backgroundSize = "cover";
         } else {
