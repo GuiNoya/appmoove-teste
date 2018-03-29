@@ -10,11 +10,11 @@ var tmdbEndpoint = "https://api.themoviedb.org/3";
 var inTheatersButton = document.querySelector("#in-theaters");
 var popularsButton = document.querySelector("#populars");
 var searchbox = document.querySelector("#searchbox");
-var modal = document.querySelector("#modal-container");
-var modalContent = document.querySelector(".modal-content");
-var modalCloseButton = document.querySelector(".close");
+var movieModal = document.querySelector("#modal-container");
+var modalContent = document.querySelector("#modal-container .modal-content");
+var modalCloseButton = document.querySelector("#modal-container .close");
 var modalPoster = document.querySelector("#modal-poster");
-var modalTitle = document.querySelector("#modal-title");
+var movieTitle = document.querySelector("#movie-title");
 var modalOverview = document.querySelector("#modal-overview");
 var modalDate = document.querySelector("#modal-date");
 var modalGenres = document.querySelector("#modal-genres");
@@ -24,33 +24,55 @@ var modalCast = document.querySelector("#modal-cast");
 var modalTmdb = document.querySelector("#modal-tmdb");
 var modalTrailer = document.querySelector("#modal-trailer");
 
+var errorCloseButton = document.querySelector("#modal-error .close");
+var errorModal = document.querySelector("#modal-error");
+var errorText = document.querySelector("#error-text");
+
+var loadingContainer = document.querySelector("#loading-container");
+
 modalCloseButton.onclick = function () {
-    modal.style.opacity = 0;
-    modal.style.visibility = "hidden";
+    movieModal.style.opacity = 0;
+    movieModal.style.visibility = "hidden";
 };
 
-modal.onclick = function (e) {
-    if (e.target === modal) {
-        modal.style.opacity = 0;
-        modal.style.visibility = "hidden";
+movieModal.onclick = function (e) {
+    if (e.target === movieModal) {
+        movieModal.style.opacity = 0;
+        movieModal.style.visibility = "hidden";
+    }
+};
+
+errorCloseButton.onclick = function () {
+    errorModal.style.opacity = 0;
+    errorModal.style.visibility = "hidden";
+};
+
+errorModal.onclick = function (e) {
+    if (e.target === errorModal) {
+        errorModal.style.opacity = 0;
+        errorModal.style.visibility = "hidden";
     }
 };
 
 function openPopular() {
     if (document.querySelector("a.active") === popularsButton) return;
+    showLoadingScreen();
     callTmdbEndpoint(generateRequestURI("popular"), function (response) {
         inTheatersButton.className = "";
         popularsButton.classList = "active";
         refreshMoviesList(JSON.parse(response).results, moviesToShowInTheaters);
+        hideLoadingScreen();
     });
 }
 
 function openInTheaters() {
     if (document.querySelector("a.active") === inTheatersButton) return;
+    showLoadingScreen();
     callTmdbEndpoint(generateRequestURI("now_playing"), function (response) {
         inTheatersButton.className = "active";
         popularsButton.className = "";
         refreshMoviesList(JSON.parse(response).results, moviesToShowPopular);
+        hideLoadingScreen();
     });
 }
 
@@ -60,7 +82,7 @@ function searchMovie() {
     callTmdbEndpoint(generateRequestURI("search", query), function (response) {
         var tmdbResults = JSON.parse(response).results;
         if (tmdbResults.length === 0) {
-            console.log("A pesquisa encontrou nada!");
+            showErrorMessage("Nada foi encontrado!");
             return;
         }
         inTheatersButton.className = "";
@@ -88,12 +110,12 @@ function callTmdbEndpoint(requestURI, callback) {
 
     xhr.addEventListener("readystatechange", function () {
         if (this.readyState === this.DONE) {
-            callback(this.responseText);
+            if (xhr.status === 200) {
+                callback(this.responseText);
+            } else {
+                showErrorMessage();
+            }
         }
-    });
-
-    xhr.addEventListener("timeout", function () {
-        throw ("Request timed out!");
     });
 
     xhr.open("GET", requestURI, true);
@@ -118,14 +140,35 @@ function invertDateString(dateString) {
     return lista[2] + "-" + lista[1] + "-" + lista[0];
 }
 
+function showLoadingScreen() {
+    loadingContainer.style.opacity = 1;
+    loadingContainer.style.visibility = "visible";
+}
+
+function hideLoadingScreen() {
+    loadingContainer.style.opacity = 0;
+    loadingContainer.style.visibility = "hidden";
+}
+
+function showErrorMessage(msg) {
+    hideLoadingScreen();
+    if (msg === undefined) {
+        errorText.innerHTML = "Erro ao obter informações!";
+    } else {
+        errorText.innerHTML = msg;
+    }
+    errorModal.style.opacity = 1;
+    errorModal.style.visibility = "visible";
+}
+
 function showMovieDetails(id) {
+    showLoadingScreen();
     callTmdbEndpoint(generateRequestURI("movie", id), function (response) {
         var movie = JSON.parse(response);
-        console.log(movie);
-        modal.style.opacity = 1;
-        modal.style.visibility = "visible";
+        movieModal.style.opacity = 1;
+        movieModal.style.visibility = "visible";
         // Título
-        modalTitle.innerHTML = movie.title;
+        movieTitle.innerHTML = movie.title;
         // Resumo
         modalOverview.innerHTML = movie.overview;
         // Data de streia
@@ -190,5 +233,7 @@ function showMovieDetails(id) {
             modalContent.style.backgroundImage = "";
             modalContent.style.backgroundColor = "rgb(48, 48, 48)";
         }
+
+        hideLoadingScreen();
     });
 }

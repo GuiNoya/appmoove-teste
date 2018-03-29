@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Teste desenvolvedor Appmoove</title>
     <link rel="stylesheet" type="text/css" href="css/style.css">
-    <!-- Font awesome para o icone de busca -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">    
+    <!-- Font awesome para o icone de busca e loading -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,900" rel="stylesheet">
 </head>
 
@@ -23,7 +23,7 @@
         <div class="navbar">
             <a href="#" id="in-theaters" onclick="openInTheaters()">Em cartaz</a>
             <a href="#" id="populars" onclick="openPopular()">Populares</a>
-            <form id="search" onsubmit="searchMovie()">
+            <form id="search" onsubmit="searchMovie(); return false;">
                 <input id="searchbox" type="search" placeholder="Buscar..." size="14">
                 <button type="submit" id="search-button"><i class="fa fa-search"></i></button>
             </form>
@@ -38,10 +38,10 @@
             <span class="close">&times;</span>
             <div style="display: flex;">
                 <div>
-                    <img id="modal-poster" alt="poster">
+                    <img id="modal-poster" alt="">
                 </div>
                 <div style="margin-left: 2em; flex-grow: 1;">
-                    <h2 id="modal-title">Nome</h2>
+                    <h2 id="movie-title" class="modal-title modal-text">Nome</h2>
                     <p id="modal-overview" class="modal-text"></p>
                     <p id="modal-date" class="modal-text">Data de estreia:</p>
                     <p id="modal-genres" class="modal-text">Gêneros:</p>
@@ -53,6 +53,17 @@
                 </div>
             </div>
         </div>
+    </div>
+
+    <div id="modal-error" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="error-text" class="modal-title modal-text">Erro ao obter informações!</h2>
+        </div>
+    </div>
+
+    <div id="loading-container">
+        <p><i class="fa loading">&#xf013;</i></p>
     </div>
 
     <!-- Load scripts here to load after the html loads -->
