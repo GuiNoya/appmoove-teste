@@ -14,7 +14,7 @@ body {
 /* Header */
 
 header {
-    padding: 1em;
+    padding: 1vw;
     background-color: rgb(201, 227, 235);
     display: flex;
     justify-content: space-between;
@@ -46,8 +46,8 @@ nav a {
     text-decoration: none;
     font-size: 1.5em;
     color: black;
-    border: 0.2em solid rgb(56, 101, 138);
-    padding: 0.7em;
+    border: 0.3vw solid rgb(56, 101, 138);
+    padding: 1.2vw;
     color: rgb(243, 235, 231);
 }
 
@@ -62,7 +62,7 @@ nav a.active {
 
 nav form {
     float: right;
-    margin: 0.95em;
+    margin: 1vw;
     vertical-align: middle;
 }
 
@@ -71,17 +71,17 @@ nav input {
     border: none;
     font-size: 1.5em;
     vertical-align: middle;
-    border: 0.1em solid rgb(56, 101, 138)
+    border: 0.25vw solid rgb(56, 101, 138)
 }
 
 nav button {
     cursor: pointer;
-    margin: -0.20em;
+    margin-left: -0.45vw;
     border: none;
     font-size: 1.60em;
     vertical-align: middle;
     background: rgb(94, 143, 184);
-    border: 0.1em solid rgb(56, 101, 138);
+    border: 0.25vw solid rgb(56, 101, 138);
 }
 
 nav button:hover {
@@ -92,21 +92,23 @@ nav button:hover {
 
 main {
     display: grid;
-    grid-template: '. . .';
-    grid-gap: 1em 5em;
-    margin: 10em;
-    margin-top: 1.5em;
+    margin: 5vw;
+    margin-top: 2vw;
+    margin-bottom: 2vw;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-gap: 2vw 1vw;
+    justify-items: center;
 }
 
 main .movie-general {
-    border: 0.4em outset darkgrey;
+    border: 0.4vw outset darkgrey;
     border-radius: 1em;
     display: flex;
     flex-direction: column;
     align-items: center;
     min-height: 0;
-    min-width: 16em;
-    max-width: 16em;
+    min-width: 15em;
+    max-width: 15em;
 }
 
 main .movie-general:hover {
@@ -115,14 +117,13 @@ main .movie-general:hover {
 }
 
 main .movie-img {
-    margin: 1em 1em;
+    margin: 1vw 1vw;
     overflow: hidden;
     min-width: 0;
 }
 
 main div p {
-    margin: 0.1em;
-    margin-left: 1em
+    margin: 0.1vw;
 }
 
 main div .movie-name {
@@ -169,6 +170,10 @@ main div .movie-name {
 .close:hover {
     color: white;
     cursor: pointer;
+}
+
+#movie-content {
+    display: flex;
 }
 
 #modal-img {
@@ -223,11 +228,43 @@ main div .movie-name {
     right: 48%;
     top: 43%;
     font-size: 1.60em;
+    -webkit-animation: spin 2s linear infinite;
     animation: spin 2s linear infinite;
     cursor: default;
 }
 
+@-webkit-keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
 @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@media screen and (max-width: 680px) {
+    nav a {
+        float: none;
+        width: 97%;
+    }
+    nav form {
+        position: relative;
+        left: -5vw;
+    }
+    div #movie-content {
+        flex-direction: column;
+    }
+    #modal-poster {
+        width: 100%;
+        height: auto;
+    }
 }

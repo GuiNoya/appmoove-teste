@@ -25,7 +25,9 @@
             <a href="#" id="populars" onclick="openPopular()">Populares</a>
             <form id="search" onsubmit="searchMovie(); return false;">
                 <input id="searchbox" type="search" placeholder="Buscar..." size="14">
-                <button type="submit" id="search-button"><i class="fa fa-search"></i></button>
+                <button type="submit" id="search-button">
+                    <i class="fa fa-search"></i>
+                </button>
             </form>
         </div>
     </nav>
@@ -36,7 +38,7 @@
     <div id="modal-container" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
-            <div style="display: flex;">
+            <div id="movie-content">
                 <div>
                     <img id="modal-poster" alt="">
                 </div>
@@ -63,10 +65,12 @@
     </div>
 
     <div id="loading-container">
-        <p><i class="fa loading">&#xf013;</i></p>
+        <p>
+            <i class="fa loading">&#xf013;</i>
+        </p>
     </div>
 
-    <!-- Load scripts here to load after the html loads -->
+    <!-- Load scripts here (reason: it will not lock the page) -->
     <script src="js/main.js"></script>
 
 </body>

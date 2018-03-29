@@ -125,7 +125,8 @@ function callTmdbEndpoint(requestURI, callback) {
 
 function refreshMoviesList(tmdbResults, qty) {
     var newItems = "";
-    for (var i = 0; i < qty && i < tmdbResults.length; i++) {
+    var i = 0;
+    for (; i < qty && i < tmdbResults.length; i++) {
         newItems += '<div class="movie-general" id="movie' + i + '" onclick=showMovieDetails(' + tmdbResults[i].id + ')>' +
             '<img class="movie-img" src="http://image.tmdb.org/t/p/w185' + tmdbResults[i].poster_path + '" alt="Poster ' + tmdbResults[i].title + '">' +
             '<p class="movie-name">' + tmdbResults[i].title + '</p>' +
