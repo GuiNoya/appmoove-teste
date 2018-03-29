@@ -1,12 +1,15 @@
 "use strict";
 
+// config vars
 var apiKey = "9da26ae1350cf4c9c3501f0257e754dd";
 var moviesToShowInTheaters = 3; // Up to 20 (1 page at TMDb API)
 var moviesToShowPopular = 5;
 var moviesToShowSearch = 9;
 
+// Endpoint var
 var tmdbEndpoint = "https://api.themoviedb.org/3";
 
+// Elementos
 var inTheatersButton = document.querySelector("#in-theaters");
 var popularsButton = document.querySelector("#populars");
 var searchbox = document.querySelector("#searchbox");
@@ -30,6 +33,7 @@ var errorText = document.querySelector("#error-text");
 
 var loadingContainer = document.querySelector("#loading-container");
 
+// Fecha o modal quando clican no X ou fora do modal
 modalCloseButton.onclick = function () {
     movieModal.style.opacity = 0;
     movieModal.style.visibility = "hidden";
@@ -54,6 +58,9 @@ errorModal.onclick = function (e) {
     }
 };
 
+/**
+ * Abri a aba "Populares"
+ */
 function openPopular() {
     if (document.querySelector("a.active") === popularsButton) return;
     showLoadingScreen();
@@ -65,6 +72,9 @@ function openPopular() {
     });
 }
 
+/**
+ * Abre a aba "Em cartaz"
+ */
 function openInTheaters() {
     if (document.querySelector("a.active") === inTheatersButton) return;
     showLoadingScreen();
@@ -76,6 +86,9 @@ function openInTheaters() {
     });
 }
 
+/**
+ * Abre a pesquisa de acordo com o form de pesquisa
+ */
 function searchMovie() {
     var query = searchbox.value;
     if (query === "") return;
@@ -91,6 +104,11 @@ function searchMovie() {
     });
 }
 
+/**
+ * Gera a URI pra requisição do TMDb
+ * @param {string} request A requisição para gerar. Possiveis valores: "search", "movie", "popular", "now_playing"
+ * @param {*} query O parâmetro para inserir na URI (usado somente em "search" e "movie")
+ */
 function generateRequestURI(request, query) {
     var uri = tmdbEndpoint;
     if (request === "search") {
@@ -104,9 +122,14 @@ function generateRequestURI(request, query) {
     return uri + "language=pt-BR&api_key=" + apiKey;
 }
 
+/**
+ * Faz uma requisição AJAX para carregar os dados do TMDb
+ * @param {string} requestURI A URI gerada a partir da função generateRequestURI
+ * @param {function} callback O callback para chamar quando a requisição retornar com sucesso
+ */
 function callTmdbEndpoint(requestURI, callback) {
     var xhr = new XMLHttpRequest();
-    //xhr.withCredentials = true;
+    //xhr.withCredentials = true; // Comentar para não ter problemas com CORS
 
     xhr.addEventListener("readystatechange", function () {
         if (this.readyState === this.DONE) {
@@ -123,6 +146,11 @@ function callTmdbEndpoint(requestURI, callback) {
     xhr.send();
 }
 
+/**
+ * Mostra os filmes na tag main
+ * @param {Object} tmdbResults O vetor JSON com os filmes para mostrar
+ * @param {number} qty A quantidade de filmes para mostrar
+ */
 function refreshMoviesList(tmdbResults, qty) {
     var newItems = "";
     var i = 0;
@@ -136,21 +164,35 @@ function refreshMoviesList(tmdbResults, qty) {
     document.querySelector("main").innerHTML = newItems;
 }
 
+/**
+ * Inverter a data de AAAA-MM-DD para DD-MM-AAA
+ * @param {string} dateString A data para inverter
+ */
 function invertDateString(dateString) {
     var lista = dateString.split("-");
     return lista[2] + "-" + lista[1] + "-" + lista[0];
 }
 
+/**
+ * Mostra a tela de carregamento
+ */
 function showLoadingScreen() {
     loadingContainer.style.opacity = 1;
     loadingContainer.style.visibility = "visible";
 }
 
+/**
+ * Remove a tela de carregamento
+ */
 function hideLoadingScreen() {
     loadingContainer.style.opacity = 0;
     loadingContainer.style.visibility = "hidden";
 }
 
+/**
+ * Mostra mensagem de erro
+ * @param {string} msg A mensagem para mostrar (caso não fornecida, mostra "Erro ao obter informações!")
+ */
 function showErrorMessage(msg) {
     hideLoadingScreen();
     if (msg === undefined) {
@@ -162,6 +204,10 @@ function showErrorMessage(msg) {
     errorModal.style.visibility = "visible";
 }
 
+/**
+ * Mostra a janela modal com detalhes do filme selecionado
+ * @param {number} id O id do filme no TMBd
+ */
 function showMovieDetails(id) {
     showLoadingScreen();
     callTmdbEndpoint(generateRequestURI("movie", id), function (response) {
